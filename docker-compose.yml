@@ -33,6 +33,10 @@ services:
             - 443:443
             - 7080:7080
         restart: always
+    memcached:
+        image: memcached:latest
+        ports:
+            - "11211:11211"
 
 volumes:
     vhosts:
