@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+    mysql:
+        image: mariadb:10.3.17
+        command: --max_allowed_packet=256M --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - ./dbdata:/var/lib/mysql:delegated
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    litespeed:
+        image: litespeed-wp:latest
+        build:
+            context: .
+            args:
+                LSWS_VERSION: ${LSWS_VERSION}
+                PHP_VERSION: ${PHP_VERSION}
+        env_file:
+            - .env
+        volumes:
+            - ./lsws/conf:/usr/local/lsws/conf
+            - ./lsws/admin/conf:/usr/local/lsws/admin/conf
+            - ./logs:/usr/local/lsws/logs/
+            - type: volume
+              source: vhosts
+              target: /var/www/vhosts
+        ports:
+            - 80:80
+            - 443:443
+            - 7080:7080
+        restart: always
+
+volumes:
+    vhosts:
