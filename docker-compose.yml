@@ -13,7 +13,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     litespeed:
-        image: litespeed-wp:latest
+        image: vadossam/litespeed-wp:latest
         build:
             context: .
             args:

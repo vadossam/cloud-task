@@ -23,6 +23,12 @@ docker-compose up -d
 ```
 After containers are built and started, you can navigate to *http://localhost* or *http://SERVER_IP* to set up WordPress admin details.
 
+**In case of any issues with building the image, feel free to pull ready-to-deploy image from Dockerhub:**
+```
+docker pull vadossam/litespeed-wp:latest
+docker-compose up -d
+```
+
 ## Status page
 LiteSpeed status info can accessed in browser or via command line:
 ```
